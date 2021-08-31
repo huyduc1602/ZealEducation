@@ -1,0 +1,157 @@
+﻿@model IEnumerable<Education.DAL.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section plugincss{
+    <link href="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">Category</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">Category</li>
+            </ul>
+        </div>
+        <div class="col-auto text-right float-right ml-auto">
+            <a href="@Url.Action("Create","Categories")" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-table">
+            <div class="card-body">
+                <input type="search" id="key" class="form-control mb-2" placeholder="Search..." />
+                <div class="table-responsive">
+                    <table class="table table-hover table-center mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.ParentId)</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="load-category">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td> @Html.DisplayFor(modelItem => item.Id)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ParentId)</td>
+
+                                    <td class="text-right">
+                                        <div class="actions">
+                                            <a href="@Url.Action("Edit","Course")" class="btn btn-sm bg-success-light mr-2">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm bg-danger-light" data="@item.Id">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section pluginjs{
+    <script src="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.js"></script>
+}
+
+@section scripts{
+    <script>
+        var managerCategory = {
+            load: function (CurrentPage = 1, Limit = 10, Key = null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Categories/GetData",
+                    data: { CurrentPage: CurrentPage, Limit: Limit, Key: Key },
+                    success: function (res) {
+                        res.data = JSON.parse(res.data);
+                        console.log(res.data);
+                        html = '';
+                        for (let item of res.data) {
+                            html += `<tr>
+                                                        <td>${item.Id}</td>
+                                                        <td>${item.Name}</td>
+                                                        <td>${item.ParentId == 0 ? '(not parent)' : item.ParentId}</td>
+                                                        <td class="text-right">
+                                                        <div class="actions">
+                                                            <a href="/Admin/Categories/Edit/${item.Id}" class="btn btn-sm bg-success-light mr-2">
+                                                                <i class="fas fa-pen"></i>
+                                                            </a>
+                                                            <a class="btn btn-sm btn-warning btn-remove" data-id="${item.Id}">
+                                                                <i class="fas fa-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                        </td>
+                                                    </tr>`;
+                        }
+                        let paginate = '';
+                        if (res.paginate.TotalPage > 1) {
+                            for (var i = 1; i <= res.paginate.TotalPage; i++) {
+                                if (i == res.paginate.CurrentPage) {
+                                    paginate += `<li class="paginate_button page-item active"><a href="javascript:void(0)" class="page-link">${i}</a></li>`;
+                                } else {
+                                    paginate += `<li><a class="page-link" href="javascript:void(0)">${i}</a></li>`;
+                                }
+
+                            }
+                        }
+
+                        $(".load-category").html(html);
+                        $(".pagination").html(paginate);
+                    }
+                })
+            },
+            delete: function (id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Categories/Delete",
+                    data: { id: id },
+                    success: function (data) {
+                        if (data.StatusCode == 200) {
+                            alert(data.Message);
+                            managerCategory.load();
+                        } else {
+                            alert(data.Message);
+                        }
+                    }
+                })
+            }
+        }
+        $(function () {
+            managerCategory.load();
+            $(".custom-select").change(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#key").val();
+                managerCategory.load(1, limit, key);
+            });
+            $(document).on("click", ".btn-remove", function () {
+                let userId = $(this).data("id");
+                managerCategory.delete(userId);
+            })
+            $(document).on("click", ".page", function () {
+                let page = $(this).text();
+                let key = $("#key").val();
+                managerCategory.load(page, key);
+            })
+            $("#key").keyup(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#key").val();
+                managerCategory.load(1, limit, key);
+            })
+        })
+    </script>
+}

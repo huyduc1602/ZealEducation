@@ -1,0 +1,62 @@
+﻿@model Education.DAL.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">User Detail</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">@Html.ActionLink("Users", "Index")</li>
+                <li class="breadcrumb-item active">User Detail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="about-info">
+                            <h4>About User</h4>
+                            <div class="media mt-3">
+                                @*<img src="@Html.DisplayFor(model => model.Image)" class="mr-3" alt="@Html.DisplayFor(model => model.Name)" />*@
+                                <div class="media-body">
+                                    <ul>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.UserName) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.UserName)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.FullName) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.FullName)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.Email) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.Email)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.GroupUser) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.GroupUser.Name)</span>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+      
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @Html.ActionLink("Back To List", "Index", null, new { @class = "btn btn-primary mb-5" })
+
+    </div>
+</div>

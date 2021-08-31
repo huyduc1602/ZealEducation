@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "FAQS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <style>
+        .header__area.sticky ul li a {
+            color: #0e1133;
+        }
+    </style>
+}
+<!-- page title area start -->
+<section class="page__title-area page__title-height page__title-overlay d-flex align-items-center" data-background="/Content/assets/img/page-title/page-title-2.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="page__title-wrapper mt-110">
+                    <h3 class="page__title">FAQS </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">FAQS</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end -->
+<!-- faqs area start -->
+<section class="events__area pt-115 pb-120 p-relative">
+    <div class="events__shape">
+        <img class="events-1-shape" src="~/Content/assets/img/events/events-shape.png" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-4 offset-xxl-4">
+                <div class="section__title-wrapper mb-60 text-center">
+                    <h2 class="section__title">
+                        Frequently Asked Questions
+                        <span class="yellow-bg yellow-bg-big">
+                            (FAQ)
+                            <img src="~/Content/assets/img/shape/yellow-bg.png" alt="">
+                        </span>
+                    </h2>
+                    <p>We have answered common questions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        When will the next weekly course begin?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Evenings and mornings weekly courses do not start on set dates.  Ceramic courses run all year round so you can join at any time as long as there is a place available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        How long is the final exam?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>You have 3 hours to complete the exam.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Do I have to begin the course on a specific date?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>If taking Zeal Education online you have the flexibility to begin your course at any date, and you may complete it within as little as one week or up to 6 months – the choice is yours. If taking the in class course you must begin and end the course on set dates.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        What if I fail the exam?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>If you fail the exam you can arrange a rewrite exam at no additional cost to you at the next available exam date. If you fail the rewrite you must re-enroll in the course, paying the full tuition. This is a FSRA requirement.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Do I have access to a “live” person in the online course?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>
+                            Of course! Your Professor, an industry professional, is there to help, Monday to Friday during regular business hours.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- faqs area end -->
+@section scripts{
+    <script>
+        $(function () {
+            $('#header-sticky').addClass('header__white');
+        })
+    </script>
+
+}

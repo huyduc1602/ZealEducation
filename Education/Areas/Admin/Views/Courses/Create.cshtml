@@ -1,0 +1,158 @@
+﻿@model Education.Areas.Admin.Data.DataModel.CourseModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">Add Course</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">@Html.ActionLink("Courses", "Index")</li>
+                <li class="breadcrumb-item active">Add Course</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm("Create", "Courses", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="form-title"><span>Course Information</span></h5>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <input type="hidden" id="CodeHidden" value="@ViewBag.CourseCode" />
+                                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Slug, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Slug, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Slug, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.StudyTime, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.StudyTime, new { htmlAttributes = new { @class = "form-control", min = 1, max = 36 } })
+                                @Html.ValidationMessageFor(model => model.StudyTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", type = "number", min = 1 } })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SalePrice, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @class = "form-control", type = "number", min = 0 } })
+                                @Html.ValidationMessageFor(model => model.SalePrice, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaximumCandicate, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.MaximumCandicate, new { htmlAttributes = new { @class = "form-control", min = 1, max = 1000 } })
+                                @Html.ValidationMessageFor(model => model.MaximumCandicate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Detail, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control editor" } })
+                                @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label" })
+                                <input type="file" name="Image" class="form-control image" />
+                                <img style="width:45px" src="#" alt="course image" />
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section pluginjs{
+    <script src="~/Areas/Admin/Content/assets/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Areas/Admin/Content/assets/js/autoSlug.js"></script>
+}
+@section scripts{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(input).next('img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".image").change(function () {
+            readURL(this);
+        });
+        function formatPrice(obj) {
+            //remove any existing decimal
+            p = obj.value.replace('.', '');
+
+            //get everything except the last 2 digits
+            var l = p.substring(-2, p.length - 2);
+
+            //get the last 2 digits
+            var r = p.substring(p.length - 2, p.length);
+
+            //update the value
+            obj.value = l + '.' + r;
+        }
+        $(function () {
+            $('#Code').val($('#CodeHidden').val());
+        })
+
+        ClassicEditor
+            .create(document.querySelector('.editor'), {
+                ckfinder: {
+                    uploadUrl: '/ckfinder/connector?command=QuickUpload&type=Files&responseType=json'
+                },
+                toolbar: ['ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo']
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    </script>
+}

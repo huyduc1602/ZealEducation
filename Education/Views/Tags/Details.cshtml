@@ -1,0 +1,275 @@
+﻿@model  IEnumerable<Education.DAL.Blog>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    <style>
+        .header__area.sticky ul li a {
+            color: #0e1133;
+        }
+    </style>
+}
+
+<!-- page title area start -->
+<section class="page__title-area page__title-height page__title-overlay d-flex align-items-center" data-background="/Content/assets/img/page-title/page-title-2.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="page__title-wrapper mt-110">
+                    <h3 class="page__title">Tag : @ViewBag.TagName  </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Blogs","Home")">Blogs</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tag : @ViewBag.TagName </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end -->
+<!-- blog area start -->
+<section class="blog__area pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-8 col-xl-8 col-lg-8">
+                <div class="row list-blog">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                            <div class="blog__wrapper">
+                                <div class="blog__item white-bg mb-30 transition-3 fix">
+                                    <div class="blog__thumb w-img fix">
+                                        <a href="/blogs/@item.Slug">
+                                            <img src="@Html.DisplayFor(modelItem => item.Image)" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blog__content">
+                                        <div class="blog__tag">
+                                            <a href="#">@Html.DisplayFor(modelItem => item.Category.Name)</a>
+                                        </div>
+                                        <h3 class="blog__title"><a href="/blogs/@item.Slug">@item.Name</a></h3>
+
+                                        <div class="blog__meta d-flex align-items-center justify-content-between">
+                                            <div class="blog__author d-flex align-items-center">
+                                                <div class="blog__author-thumb mr-10">
+                                                    Posted by
+                                                    @*<img src="@Html.DisplayFor(modelItem => item.Image)" alt="">*@
+                                                </div>
+                                                <div class="blog__author-info">
+                                                    <h5>@Html.DisplayFor(modelItem => item.User.UserName)</h5>
+                                                </div>
+                                            </div>
+                                            <div class="blog__date d-flex align-items-center">
+                                                <i class="fal fa-clock"></i>
+                                                <span>@item.UpdatedAt.ToString("MMM dd, yyyy") </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="basic-pagination wow fadeInUp mt-30" data-wow-delay=".2s">
+                            <ul class="d-flex align-items-center pagination">
+        
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-xl-4 col-lg-4">
+                <div class="blog__sidebar pl-70">
+                    <div class="sidebar__widget mb-60">
+                        <div class="sidebar__widget-content">
+                            <div class="sidebar__search p-relative">
+                                <div id="form-search">
+                                    <input type="text" id="key" placeholder="Search for posts...">
+                                    <button type="button" class="search-click">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 584.4 584.4" style="enable-background:new 0 0 584.4 584.4;" xml:space="preserve">
+                                        <g>
+                                        <g>
+                                        <path class="st0" d="M565.7,474.9l-61.1-61.1c-3.8-3.8-8.8-5.9-13.9-5.9c-6.3,0-12.1,3-15.9,8.3c-16.3,22.4-36,42.1-58.4,58.4    c-4.8,3.5-7.8,8.8-8.3,14.5c-0.4,5.6,1.7,11.3,5.8,15.4l61.1,61.1c12.1,12.1,28.2,18.8,45.4,18.8c17.1,0,33.3-6.7,45.4-18.8    C590.7,540.6,590.7,499.9,565.7,474.9z" />
+                                        <path class="st1" d="M254.6,509.1c140.4,0,254.5-114.2,254.5-254.5C509.1,114.2,394.9,0,254.6,0C114.2,0,0,114.2,0,254.5    C0,394.9,114.2,509.1,254.6,509.1z M254.6,76.4c98.2,0,178.1,79.9,178.1,178.1s-79.9,178.1-178.1,178.1S76.4,352.8,76.4,254.5    S156.3,76.4,254.6,76.4z" />
+                                          </g>
+                                       </g>
+                                       </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__widget mb-55">
+                        <div class="sidebar__widget-head mb-35">
+                            <h3 class="sidebar__widget-title">Recent posts</h3>
+                        </div>
+                        <div class="sidebar__widget-content">
+                            <div class="rc__post-wrapper">
+                                @if (ViewBag.BlogRecent != null)
+                                {
+                                    foreach (var item in ViewBag.BlogRecent)
+                                    {
+                                        <div class="rc__post d-flex align-items-center">
+                                            <div class="rc__thumb mr-20">
+                                                <a href="/blogs/@item.Slug"><img src="@item.Image" alt=""></a>
+                                            </div>
+                                            <div class="rc__content">
+                                                <div class="rc__meta">
+                                                    <span>@item.UpdatedAt.ToString("MMM dd, yyyy")</span>
+                                                </div>
+                                                <h6 class="rc__title"><a href="/blogs/@item.Slug">@item.Name</a></h6>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__widget mb-55">
+                        <div class="sidebar__widget-head mb-35">
+                            <h3 class="sidebar__widget-title">Category</h3>
+                        </div>
+                        <div class="sidebar__widget-content">
+                            <div class="sidebar__category">
+                                <ul>
+                                    @foreach (var item in ViewBag.Categories)
+                                    {
+                                        <li><a href="/categories/details/@item.Id">@item.Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__widget mb-55">
+                        <div class="sidebar__widget-head mb-35">
+                            <h3 class="sidebar__widget-title">Tags</h3>
+                        </div>
+                        <div class="sidebar__widget-content">
+                            <div class="sidebar__tag">
+                                @foreach (var item in ViewBag.Tags)
+                                {
+                                    <a href="/tags/details/@item.Id">@item.Content</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar__widget mb-55">
+                        <div class="sidebar__banner w-img">
+                            <img src="~/Content/assets/img/blog/banner/banner-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<input type="hidden" id="Id" value="@ViewBag.Id" />
+<!-- blog area end -->
+@section scripts{
+    <script>
+        var id = document.getElementById("Id").value;
+        function convertDate(date) {
+            var dt = new Date(date);
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+
+            return monthNames[dt.getMonth()] + " " + dt.getDate() + "," + dt.getFullYear();
+        }
+        var manager = {
+            load: function (CurrentPage = 1, Limit = 9, Key = null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Tags/GetData",
+                    data: { Id:id,CurrentPage: CurrentPage, Limit: Limit, Key: Key },
+                    success: function (res) {
+                        res.data = JSON.parse(res.data);
+                        html = '';
+                        for (let item of res.data) {
+                            html += `<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                                <div class="blog__wrapper">
+                                    <div class="blog__item white-bg mb-30 transition-3 fix">
+                                        <div class="blog__thumb w-img fix">
+                                            <a href="/blogs/${item.Slug}">
+                                                <img src="${item.Image}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="blog__content">
+                                            <div class="blog__tag">
+                                                <a href="/blogs/${item.Slug}">${item.Category.Name}</a>
+                                            </div>
+                                            <h3 class="blog__title"><a href="/blogs/${item.Slug}">${item.Name}</a></h3>
+
+                                            <div class="blog__meta d-flex align-items-center justify-content-between">
+                                                <div class="blog__author d-flex align-items-center">
+                                                    <div class="blog__author-thumb mr-10">
+                                                        Posted by
+                                                    </div>
+                                                    <div class="blog__author-info">
+                                                        <h5>${item.User.UserName}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="blog__date d-flex align-items-center">
+                                                    <i class="fal fa-clock"></i>
+                                                    <span>`+ convertDate(item.UpdatedAt) + `</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }
+                        let paginate = '';
+                        if (res.paginate.TotalPage > 1) {
+                            for (var i = 1; i <= res.paginate.TotalPage; i++) {
+                                if (i == res.paginate.CurrentPage) {
+                                    paginate += `<li class="active"> <a href="javascript:void(0)"><span>${i}<span></a></li> `;
+                                } else {
+                                    paginate += `<li> <a href="javascript:void(0)"  class="page"><span>${i}</span></a></li> `;
+                                }
+
+                            }
+                        }
+
+                        $(".list-blog").html(html);
+                        $(".pagination").html(paginate);
+                    }
+                })
+            }
+
+        }
+        $(function () {
+            $('#header-sticky').addClass('header__white');
+            manager.load();
+            $(document).on("click", ".page", function () {
+                let page = $(this).text();
+                let key = $("#key").val();
+                manager.load(page, key);
+            })
+            $('.search-click').click(function (evt) {
+                let limit = 9;
+                let key = $("#key").val();
+                manager.load(1, limit, key);
+            })
+            $("#key").keypress(function (event) {
+                if (event.which == 13) {
+                    let limit = 9;
+                    let key = $("#key").val();
+                    manager.load(1, limit, key);
+                }
+
+            })
+        })
+    </script>
+
+}

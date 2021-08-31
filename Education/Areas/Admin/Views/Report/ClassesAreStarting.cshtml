@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Education.Areas.Admin.Data.ViewModel.BatchView>
+
+@{
+    ViewBag.Title = "ClassesAreStarting";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section plugincss{
+    <link href="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">The Class Has Ended</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">The Class Has Ended</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-table">
+            <div class="card-body">
+                <input type="text" placeholder="Search" id="search-batch" class="search form-control mb-3">
+                <div class="table-responsive">
+                    <table class="table table-hover table-center mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Code)</th>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.Course)</th>
+                                <th>@Html.DisplayNameFor(model => model.Faulty)</th>
+                                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                                <th>@Html.DisplayNameFor(model => model.User)</th>
+                                <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                                <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="load-batch">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Course)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Faulty)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.User)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section pluginjs{
+    <script src="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.js"></script>
+}
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script>
+        var manageClassRoom = {
+            load: function (CurrentPage = 1, Limit = 10, Key = null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Report/GetClassesAreStarting",
+                    data: { CurrentPage: CurrentPage, Limit: Limit, Key: Key },
+                    success: function (res) {
+                        res.data = JSON.parse(res.data);
+                        console.log(res.data);
+                        html = '';
+                        for (let item of res.data) {
+                            let createAt = moment(item.CreatedAt).format('DD-MM-YYYY');
+                            let updateAt = '';
+                            if (item.UpdatedAt != null) {
+                                updateAt = moment(item.UpdatedAt).format('DD-MM-YYYY');
+                            } else {
+                                updateAt = 'Not update';
+                            }
+                            html += `<tr>
+                                             <td>${item.Code}</td>
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <a href="/Admin/Batch/Details/${item.Id}">${item.Name}</a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>${item.Course}</td>
+                                                            <td>${item.Faulty}</td>
+                                                            <td>${item.Status}</td>
+                                                            <td>${item.User}</td>
+                                                            <td>${createAt}</td>
+                                                            <td>${updateAt}</td>
+                                                        </tr>`;
+                        }
+                        let paginate = '';
+                        if (res.paginate.CurrentPage == 1) {
+                            paginate += `<li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                                                <a href="javascript:void(0)" aria-controls="DataTables_Table_0" class="page-link">Previous</a>
+                                                            </li>`;
+                        } else {
+                            paginate += `<li class="paginate_button page-item previous page-previous" id="DataTables_Table_0_previous">
+                                                                <a href="javascript:void(0)" aria-controls="DataTables_Table_0" data-id="${res.paginate.CurrentPage - 1}" class="page-link page">Previous</a>
+                                                            </li>`;
+                        }
+                        for (var i = 1; i <= res.paginate.TotalPage; i++) {
+                            if (i == res.paginate.CurrentPage) {
+                                paginate += `<li class="paginate_button page-item active">
+                                                                <a href="javascript:void(0)" data-id="${i}" aria-controls="DataTables_Table_0" class="page-link current-page">${i}</a>
+                                                            </li>`;
+                            } else {
+                                paginate += `<li class="paginate_button page-item">
+                                                                <a href="javascript:void(0)" aria-controls="DataTables_Table_0" data-id="${i}" class="page-link page">${i}</a>
+                                                            </li>`;
+                            }
+                        }
+                        if (res.paginate.CurrentPage == res.paginate.TotalPage) {
+                            paginate += `<li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
+                                                                <a href="javascript:void(0)" aria-controls="DataTables_Table_0" class="page-link">Next</a>
+                                                            </li>`;
+                        } else {
+                            paginate += `<li class="paginate_button page-item next page-next" id="DataTables_Table_0_next">
+                                                                <a href="javascript:void(0)" aria-controls="DataTables_Table_0" data-id="${res.paginate.CurrentPage + 1}" class="page-link page">Next</a>
+                                                            </li>`;
+                        }
+                        $(".load-batch").html(html);
+                        $(".pagination").html(paginate);
+                    }
+                })
+            },
+        }
+        $(function () {
+            manageClassRoom.load();
+            $(".custom-select").change(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#search-batch").val();
+                manageClassRoom.load(1, limit, key);
+            });
+            $(document).on("click", ".page", function () {
+                let page = $(this).data("id");
+                let limit = $(".custom-select").val();
+                let key = $("#search-batch").val();
+                manageClassRoom.load(page, limit, key);
+            })
+            $("#search-batch").keyup(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#search-batch").val();
+                manageClassRoom.load(1, limit, key);
+            })
+        })
+    </script>
+}

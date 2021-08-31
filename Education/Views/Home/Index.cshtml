@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- hero area start -->
+<section class="hero__area hero__height d-flex align-items-center grey-bg-2 p-relative">
+    <div class="hero__shape">
+        <img class="hero-1-circle" src="~/Content/assets/img/shape/hero/hero-1-circle.png" alt="">
+        <img class="hero-1-circle-2" src="~/Content/assets/img/shape/hero/hero-1-circle-2.png" alt="">
+        <img class="hero-1-dot-2" src="~/Content/assets/img/shape/hero/hero-1-dot-2.png" alt="">
+    </div>
+    <div class="container">
+        <div class="hero__content-wrapper mt-90">
+            <div class="row align-items-center">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                    <div class="hero__content p-relative z-index-1">
+                        <h3 class="hero__title">
+                            <span>Access 2700+</span>
+                            <span class="yellow-shape">Online <img src="~/Content/assets/img/shape/yellow-bg.png" alt="yellow-shape"> </span>
+                            Tutorial From Top Instructor.
+                        </h3>
+                        <p>Meet university,and cultural institutions, who'll share their experience.</p>
+                        <a href="/courses" class="e-btn">view all course</a>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                    <div class="hero__thumb d-flex p-relative">
+                        <div class="hero__thumb-shape">
+                            <img class="hero-1-dot" src="~/Content/assets/img/shape/hero/hero-1-dot.png" alt="">
+                            <img class="hero-1-circle-3" src="~/Content/assets/img/shape/hero/hero-1-circle-3.png" alt="">
+                            <img class="hero-1-circle-4" src="~/Content/assets/img/shape/hero/hero-1-circle-4.png" alt="">
+                        </div>
+                        <div class="hero__thumb-big mr-30">
+                            <img src="~/Content/assets/img/hero/hero-1.jpg" alt="">
+                            <div class="hero__quote hero__quote-animation">
+                                <span>Tomorrow is our</span>
+                                <h4>“When I Grow Up” Spirit Day!</h4>
+                            </div>
+                        </div>
+                        <div class="hero__thumb-sm mt-50 d-none d-lg-block">
+                            <img src="~/Content/assets/img/hero/hero-sm-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- hero area end -->
+<!-- banner area start -->
+<section class="banner__area pb-110">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                <div class="banner__item p-relative mb-40" data-background="~/Content/assets/img/banner/banner-bg-1.jpg">
+                    <div class="banner__content">
+                        <span>Free</span>
+                        <h3 class="banner__title">
+                            <a href="/courses">Germany Foundation <br> Document</a>
+                        </h3>
+                        <a href="/courses" class="e-btn e-btn-2">View Courses</a>
+                    </div>
+                    <div class="banner__thumb d-none d-sm-block d-md-none d-lg-block">
+                        <img src="~/Content/assets/img/banner/banner-img-1.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                <div class="banner__item p-relative mb-40" data-background="~/Content/assets/img/banner/banner-bg-2.jpg">
+                    <div class="banner__content">
+                        <span class="orange">new</span>
+                        <h3 class="banner__title">
+                            <a href="/courses">Online Courses <br>From Eduka University</a>
+                        </h3>
+                        <a href="/courses" class="e-btn e-btn-2">Find Out More</a>
+                    </div>
+                    <div class="banner__thumb banner__thumb-2 d-none d-sm-block d-md-none d-lg-block">
+                        <img src="~/Content/assets/img/banner/banner-img-2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner area end -->
+<!-- course area start -->
+<section class="course__area pt-115 pb-120 grey-bg">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-xxl-5 col-xl-6 col-lg-6">
+                <div class="section__title-wrapper mb-60">
+                    <h2 class="section__title">
+                        Explore <br>Our <span class="yellow-bg">Popular <img src="~/Content/assets/img/shape/yellow-bg-2.png" alt="">  </span>Courses
+                    </h2>
+                    <p>You don't have to struggle alone, you've got our assistance and help.</p>
+                </div>
+            </div>
+            <div class="col-xxl-7 col-xl-6 col-lg-6 col-md-4">
+                <div class="category__more mb-50 float-md-end fix">
+                    <a href="/courses" class="link-btn">
+                        View all Courses
+                        <i class="far fa-arrow-right"></i>
+                        <i class="far fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row grid">
+            @foreach (var item in ViewBag.Courses)
+            {
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 grid-item cat1 cat2 cat4">
+                    <div class="course__item white-bg mb-30 fix">
+                        <div class="course__thumb w-img p-relative fix">
+                            <a href="courses/@item.Slug">
+                                <img src="@item.Image" alt="">
+                            </a>
+                        </div>
+                        <div class="course__content">
+                            <h3 class="course__title"><a href="courses/@item.Slug">@item.Name</a></h3>
+     
+                        </div>
+                        <div class="course__more d-flex justify-content-between align-items-center">
+                            <div class="course__status">
+                                @if (item.SalePrice == 0)
+                                {
+                                    <span>Free</span>
+                                }
+                                else
+                                {
+                                    <span class="sky-blue">$@item.SalePrice</span>
+                                    <span class="old-price">$@item.Price</span>
+                                }
+
+                            </div>
+                            <div class="course__btn">
+                                <a href="/courses/@item.Slug" class="link-btn">
+                                    Know Details
+                                    <i class="far fa-arrow-right"></i>
+                                    <i class="far fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- course area end -->
+<!-- blog area start -->
+<section class="category__area pt-120 pb-70">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8">
+                <div class="section__title-wrapper mb-45">
+                    <h2 class="section__title">
+                        Featured <br>News <span class="yellow-bg">From <img src="~/Content/assets/img/shape/yellow-bg-2.png" alt="">  </span>Us
+                    </h2>
+                </div>
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-4">
+                <div class="category__more mb-50 float-md-end fix">
+                    <a href="/blogs" class="link-btn">
+                        View all Posts
+                        <i class="far fa-arrow-right"></i>
+                        <i class="far fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row grid">
+            @foreach (var item in ViewBag.Blogs)
+            {
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 grid-item cat1 cat2 cat4">
+                    <div class="blog__wrapper">
+                        <div class="blog__item white-bg mb-30 transition-3 fix">
+                            <div class="blog__thumb w-img fix">
+                                <a href="/blogs/@item.Slug">
+                                    <img src="@item.Image" alt="">
+                                </a>
+                            </div>
+                            <div class="blog__content">
+                                <div class="blog__tag">
+                                    <a href="#">@item.Category.Name</a>
+                                </div>
+                                <h3 class="blog__title"><a href="/blogs/@item.Slug">The Challenge Of Global Learning In Public Education</a></h3>
+
+                                <div class="blog__meta d-flex align-items-center justify-content-between">
+                                    <div class="blog__author d-flex align-items-center">
+                                        <div class="blog__author-thumb mr-10">
+                                            Posted by
+                                            @*<img src="@Html.DisplayFor(modelItem => item.Image)" alt="">*@
+                                        </div>
+                                        <div class="blog__author-info">
+                                            <h5>@item.User.UserName</h5>
+                                        </div>
+                                    </div>
+                                    <div class="blog__date d-flex align-items-center">
+                                        <i class="fal fa-clock"></i>
+                                        <span>@item.UpdatedAt.ToString("MMM dd, yyyy") </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- blog area end -->
+<!-- cta area start -->
+<section class="cta__area mb--120">
+    <div class="container">
+        <div class="cta__inner blue-bg fix">
+            <div class="cta__shape">
+                <img src="~/Content/assets/img/cta/cta-shape.png" alt="">
+            </div>
+            <div class="row align-items-center">
+                <div class="col-xxl-7 col-xl-7 col-lg-8 col-md-8">
+                    <div class="cta__content">
+                        <h3 class="cta__title">You can be your own Guiding star with our help</h3>
+                    </div>
+                </div>
+                <div class="col-xxl-5 col-xl-5 col-lg-4 col-md-4">
+                    <div class="cta__more d-md-flex justify-content-end p-relative z-index-1">
+                        <a href="/contact" class="e-btn e-btn-white">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- cta area end -->

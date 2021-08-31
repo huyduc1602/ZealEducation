@@ -1,0 +1,178 @@
+﻿@model IEnumerable<Education.DAL.Course>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@section plugincss{
+    <link href="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">Course</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">Course</li>
+            </ul>
+        </div>
+        <div class="col-auto text-right float-right ml-auto">
+            <a href="@Url.Action("Create","Courses")" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-table">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <input type="search" id="key" class="form-control mb-2" placeholder="Search..." />
+                    <table class="table table-hover table-center mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Code)</th>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.StudyTime)</th>
+                                <th>@Html.DisplayNameFor(model => model.Price)</th>
+                                <th>@Html.DisplayNameFor(model => model.SalePrice)</th>
+                                <th>@Html.DisplayNameFor(model => model.MaximumCandicate)</th>
+
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="load-course">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td> @Html.DisplayFor(modelItem => item.Code)</td>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="student-details.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=" @Html.DisplayFor(modelItem => item.Image)" alt="User Image"></a>
+                                            <a href="student-details.html"> @Html.DisplayFor(modelItem => item.Name)</a>
+                                        </h2>
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.StudyTime)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.SalePrice)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MaximumCandicate)</td>
+                                    <td class="text-right">
+                                        <div class="actions">
+                                            <a href="@Url.Action("Edit","Courses")" class="btn btn-sm bg-success-light">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm bg-danger-light" data="@item.Id">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section pluginjs{
+    <script src="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.js"></script>
+}
+
+@section scripts{
+    <script>
+        var managerCourse = {
+            load: function (CurrentPage = 1, Limit = 10, Key = null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Courses/GetData",
+                    data: { CurrentPage: CurrentPage, Limit: Limit, Key: Key },
+                    success: function (res) {
+                        res.data = JSON.parse(res.data);
+                        console.log(res.data);
+                        html = '';
+                        for (let item of res.data) {
+                            html += `<tr>
+                                                    <td>${item.Code}</td>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="/Admin/Courses/Details/${item.Id}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${item.Image}" alt="Course Image"></a>
+                                                            <a href="/Admin/Courses/Details/${item.Id}">${item.Name}</a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>${item.StudyTime}</td>
+                                                    <td>${item.Price}</td>
+                                                    <td>${item.SalePrice}</td>
+                                                    <td>${item.MaximumCandicate}</td>
+                                                     <td>
+                                                    <div class="actions">
+                                                            <a href="/Admin/Courses/Edit/${item.Id}" class="btn btn-sm bg-success-light mr-2">
+                                                                <i class="fas fa-pen"></i>
+                                                            </a>
+                                                            <a class="btn btn-sm bg-danger-light btn-remove" data-id="${item.Id}">
+                                                                <i class="fas fa-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                        </td>
+                                                    </tr>`;
+                        }
+                        let paginate = '';
+                        if (res.paginate.TotalPage > 1) {
+                            for (var i = 1; i <= res.paginate.TotalPage; i++) {
+                                if (i == res.paginate.CurrentPage) {
+                                    paginate += `<li class="paginate_button page-item active"><a href="javascript:void(0)" class="page-link">${i}</a></li>`;
+                                } else {
+                                    paginate += `<li><a class="page-link" href="javascript:void(0)">${i}</a></li>`;
+                                }
+
+                            }
+                        }
+
+                        $(".load-course").html(html);
+                        $(".pagination").html(paginate);
+                    }
+                })
+            },
+            delete: function (id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Courses/Delete",
+                    data: { id: id },
+                    success: function (data) {
+                        if (data.StatusCode == 200) {
+                            alert(data.Message);
+                            managerCourse.load();
+                        } else {
+                            alert(data.Message);
+                        }
+                    }
+                })
+            }
+        }
+        $(function () {
+            managerCourse.load();
+            $(".custom-select").change(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#key").val();
+                managerCourse.load(1, limit, key);
+            });
+            $(document).on("click", ".btn-remove", function () {
+                let userId = $(this).data("id");
+                managerCourse.delete(userId);
+            })
+            $(document).on("click", ".page", function () {
+                let page = $(this).text();
+                let key = $("#key").val();
+                managerCourse.load(page, key);
+            })
+            $("#key").keyup(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#key").val();
+                managerCourse.load(1, limit, key);
+            })
+        })
+    </script>
+}

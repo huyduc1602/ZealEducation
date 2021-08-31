@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Education.DAL.ClassRoomFaulty>
+
+@{
+    ViewBag.Title = "DetailsFaulty";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section plugincss{
+    <link href="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">List of teaching classes</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">List of teaching classes</li>
+            </ul>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">Salary</li>
+                <li class="breadcrumb-item salary"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-table">
+            <div class="card-body">
+                <input type="text" placeholder="Search" id="search" class="search">
+                <div class="table-responsive">
+                    <table class="table table-hover table-center mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.ClassRoom.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.ClassRoom.Code)</th>
+                                <th>@Html.DisplayNameFor(model => model.ClassRoom.Course)</th>
+                                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                                <th>@Html.DisplayNameFor(model => model.ClassRoom.StartDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.ClassRoom.EndDate)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="load-learning-info">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td> @Html.DisplayFor(modelItem => item.ClassRoom.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ClassRoom.Code)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ClassRoom.Course.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ClassRoom.StartDate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ClassRoom.EndDate)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section pluginjs{
+    <script src="~/Areas/Admin/Content/assets/plugins/datatables/datatables.min.js"></script>
+}
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script>
+        var manageLearningInfo = {
+            load: function (CurrentPage = 1, Limit = 10, Key = null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/Faulties/GetDetailsFaulty",
+                    data: { CurrentPage: CurrentPage, Limit: Limit, Key: Key },
+                    success: function (res) {
+                        res.data = JSON.parse(res.data);
+                        html = '';
+                        for (let item of res.data) {
+                            let StartDate = moment(item.StartDate).format('DD-MM-YYYY');
+                            let EndDate = moment(item.EndDate).format('DD-MM-YYYY');
+                            html += `<tr>
+                                                        <td>${item.ClassRoom.Name}</td>
+                                                        <td>${item.ClassRoom.Code}</td>
+                                                        <td>${item.ClassRoom.Course.Name}</td>
+                                                        <td>${item.Status ? "Teaching" : "Finished"}</td>
+                                                        <td>${StartDate}</td>
+                                                        <td>${EndDate}</td>
+                                                    </tr>`;
+                        }
+                        let paginate = '';
+                        if (res.paginate.CurrentPage == 1) {
+                            paginate += `<li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                                            <a href="javascript:void(0)" aria-controls="DataTables_Table_0" class="page-link">Previous</a>
+                                                        </li>`;
+                        } else {
+                            paginate += `<li class="paginate_button page-item previous page-previous" id="DataTables_Table_0_previous">
+                                                            <a href="javascript:void(0)" aria-controls="DataTables_Table_0" data-id="${res.paginate.CurrentPage - 1}" class="page-link page">Previous</a>
+                                                        </li>`;
+                        }
+                        for (var i = 1; i <= res.paginate.TotalPage; i++) {
+                            if (i == res.paginate.CurrentPage) {
+                                paginate += `<li class="paginate_button page-item active">
+                                                            <a href="javascript:void(0)" data-id="${i}" aria-controls="DataTables_Table_0" class="page-link current-page">${i}</a>
+                                                        </li>`;
+                            } else {
+                                paginate += `<li class="paginate_button page-item">
+                                                            <a href="javascript:void(0)" aria-controls="DataTables_Table_0" data-id="${i}" class="page-link page">${i}</a>
+                                                        </li>`;
+                            }
+                        }
+                        if (res.paginate.CurrentPage == res.paginate.TotalPage) {
+                            paginate += `<li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
+                                                            <a href="javascript:void(0)" aria-controls="DataTables_Table_0" class="page-link">Next</a>
+                                                        </li>`;
+                        } else {
+                            paginate += `<li class="paginate_button page-item next page-next" id="DataTables_Table_0_next">
+                                                            <a href="javascript:void(0)" aria-controls="DataTables_Table_0" data-id="${res.paginate.CurrentPage + 1}" class="page-link page">Next</a>
+                                                        </li>`;
+                        }
+                        $(".load-learning-info").html(html);
+                        $(".pagination").html(paginate);
+                        console.log(res.Salary);
+                        let Salary = new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD'
+                        }).format(res.Salary);
+                        $(".salary").html(Salary);
+                    }
+                })
+            }
+        }
+        $(function () {
+            manageLearningInfo.load();
+            $(".custom-select").change(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#search-batch").val();
+                manageLearningInfo.load(1, limit, key);
+            });
+            $(document).on("click", ".page", function () {
+                let page = $(this).data("id");
+                let limit = $(".custom-select").val();
+                let key = $("#search-batch").val();
+                manageLearningInfo.load(page, limit, key);
+            })
+            $("#search").keyup(function () {
+                let limit = $(".custom-select").val();
+                let key = $("#search").val();
+                manageLearningInfo.load(1, limit, key);
+            })
+        })
+    </script>
+}

@@ -1,0 +1,712 @@
+﻿@model Education.DAL.Course
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <!-- page title area start -->
+    <section class="page__title-area pt-120 pb-90">
+        <div class="page__title-shape">
+            <img class="page-title-shape-5 d-none d-sm-block" src="~/Content/assets/img/page-title/page-title-shape-1.png" alt="">
+            <img class="page-title-shape-6" src="~/Content/assets/img/page-title/page-title-shape-6.png" alt="">
+            <img class="page-title-shape-7" src="~/Content/assets/img/page-title/page-title-shape-4.png" alt="">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-8 col-xl-8 col-lg-8">
+                    <div class="course__wrapper">
+                        <div class="page__title-content mb-25">
+                            <div class="page__title-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="@Url.Action("Courses","Home")">Courses</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">@Html.DisplayFor(model=>model.Name)</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <h5 class="page__title-3">@Html.DisplayFor(model => model.Name)</h5>
+                        </div>
+
+                        <div class="course__img w-img mb-30">
+                            <img src="@Html.DisplayFor(model => model.Image)" alt="">
+                        </div>
+                        
+                        <div class="course__tab-content mb-95">
+                            <div class="tab-content" id="courseTabContent">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    <div class="course__description">
+                                        <h3>Course Overview</h3>
+                                        <div class="course__description-list mb-45">
+                                            @Html.Raw(Model.Detail)
+                                        </div>
+                                        <div class="course__instructor mb-45">
+                                            <h3>Instructors</h3>
+                                            <div class="course__instructor-wrapper d-md-flex align-items-center">
+                                                <div class="course__instructor-item d-flex align-items-center mr-70">
+                                                    <div class="course__instructor-thumb mr-20">
+                                                        <img src="~/Content/assets/img/course/teacher/teacher-3.jpg" alt="">
+                                                    </div>
+                                                    <div class="course__instructor-content">
+                                                        <h3>Eleanor Fant</h3>
+                                                        <p>Instructor</p>
+                                                    </div>
+                                                </div>
+                                                <div class="course__instructor-item d-flex align-items-center mr-70">
+                                                    <div class="course__instructor-thumb mr-20">
+                                                        <img src="~/Content/assets/img/course/teacher/teacher-2.jpg" alt="">
+                                                    </div>
+                                                    <div class="course__instructor-content">
+                                                        <h3>Lauren Stamps</h3>
+                                                        <p>Teacher</p>
+                                                    </div>
+                                                </div>
+                                                <div class="course__instructor-item d-flex align-items-center mr-70">
+                                                    <div class="course__instructor-thumb mr-20">
+                                                        <img src="~/Content/assets/img/course/teacher/teacher-1.jpg" alt="">
+                                                    </div>
+                                                    <div class="course__instructor-content">
+                                                        <h3>Jonquil Von</h3>
+                                                        <p>Associate</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum-tab">
+                                    <div class="course__curriculum">
+                                        <div class="accordion" id="course__accordion">
+                                            <div class="accordion-item mb-50">
+                                                <h2 class="accordion-header" id="week-01">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#week-01-content" aria-expanded="true" aria-controls="week-01-content">
+                                                        Week 01
+                                                    </button>
+                                                </h2>
+                                                <div id="week-01-content" class="accordion-collapse collapse show" aria-labelledby="week-01" data-bs-parent="#course__accordion">
+                                                    <div class="accordion-body">
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg class="document" viewBox="0 0 24 24">
+                                                                    <path class="st0" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z"></path>
+                                                                    <polyline class="st0" points="14,2 14,8 20,8 "></polyline>
+                                                                    <line class="st0" x1="16" y1="13" x2="8" y2="13"></line>
+                                                                    <line class="st0" x1="16" y1="17" x2="8" y2="17"></line>
+                                                                    <polyline class="st0" points="10,9 9,9 8,9 "></polyline>
+                                                                </svg>
+                                                                <h3> <span>Reading:</span> Ut enim ad minim veniam</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 14 minutes</span>
+                                                                <span class="question">2 questions</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg viewBox="0 0 24 24">
+                                                                    <polygon class="st0" points="23,7 16,12 23,17 "></polygon>
+                                                                    <path class="st0" d="M3,5h11c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2V7C1,5.9,1.9,5,3,5z"></path>
+                                                                </svg>
+                                                                <h3> <span>Video: </span> Greetings and introduction</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 15 minutes</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg viewBox="0 0 16 16">
+
+                                                                    <path class="st0" d="M2,12V8c0-3.3,2.9-6,6.4-6s6.4,2.7,6.4,6v4"></path>
+                                                                    <path class="st0" d="M14.8,12.7c0,0.7-0.6,1.3-1.4,1.3h-0.7c-0.8,0-1.4-0.6-1.4-1.3v-2c0-0.7,0.6-1.3,1.4-1.3h2.1V12.7z M2,12.7  C2,13.4,2.6,14,3.3,14H4c0.7,0,1.3-0.6,1.3-1.3v-2c0-0.7-0.6-1.3-1.3-1.3H2V12.7z"></path>
+                                                                </svg>
+                                                                <h3> <span>Audio:</span> Interactive lesson</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 7 minutes</span>
+                                                                <span class="question">3 questions</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg class="document" viewBox="0 0 24 24">
+                                                                    <path class="st0" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z"></path>
+                                                                    <polyline class="st0" points="14,2 14,8 20,8 "></polyline>
+                                                                    <line class="st0" x1="16" y1="13" x2="8" y2="13"></line>
+                                                                    <line class="st0" x1="16" y1="17" x2="8" y2="17"></line>
+                                                                    <polyline class="st0" points="10,9 9,9 8,9 "></polyline>
+                                                                </svg>
+                                                                <h3> <span>Reading: </span> Ut enim ad minim veniam</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 22 minutes</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion" id="course__accordion-2">
+                                            <div class="accordion-item mb-50">
+                                                <h2 class="accordion-header" id="week-02">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#week-02-content" aria-expanded="true" aria-controls="week-02-content">
+                                                        Week 02
+                                                    </button>
+                                                </h2>
+                                                <div id="week-02-content" class="accordion-collapse  collapse show" aria-labelledby="week-02" data-bs-parent="#course__accordion-2">
+                                                    <div class="accordion-body">
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg class="document" viewBox="0 0 24 24">
+                                                                    <path class="st0" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z"></path>
+                                                                    <polyline class="st0" points="14,2 14,8 20,8 "></polyline>
+                                                                    <line class="st0" x1="16" y1="13" x2="8" y2="13"></line>
+                                                                    <line class="st0" x1="16" y1="17" x2="8" y2="17"></line>
+                                                                    <polyline class="st0" points="10,9 9,9 8,9 "></polyline>
+                                                                </svg>
+                                                                <h3> <span>Reading:</span> Ut enim ad minim veniam</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 14 minutes</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg viewBox="0 0 24 24">
+                                                                    <polygon class="st0" points="23,7 16,12 23,17 "></polygon>
+                                                                    <path class="st0" d="M3,5h11c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H3c-1.1,0-2-0.9-2-2V7C1,5.9,1.9,5,3,5z"></path>
+                                                                </svg>
+                                                                <h3> <span>Video: </span> Greetings and introduction</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 15 minutes</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg viewBox="0 0 16 16">
+                                                                    <path class="st0" d="M2,12V8c0-3.3,2.9-6,6.4-6s6.4,2.7,6.4,6v4"></path>
+                                                                    <path class="st0" d="M14.8,12.7c0,0.7-0.6,1.3-1.4,1.3h-0.7c-0.8,0-1.4-0.6-1.4-1.3v-2c0-0.7,0.6-1.3,1.4-1.3h2.1V12.7z M2,12.7  C2,13.4,2.6,14,3.3,14H4c0.7,0,1.3-0.6,1.3-1.3v-2c0-0.7-0.6-1.3-1.3-1.3H2V12.7z"></path>
+                                                                </svg>
+                                                                <h3> <span>Audio:</span> Interactive lesson</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 7 minutes</span>
+                                                                <span class="question">2 questions</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
+                                                            <div class="course__curriculum-info">
+                                                                <svg class="document" viewBox="0 0 24 24">
+                                                                    <path class="st0" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z"></path>
+                                                                    <polyline class="st0" points="14,2 14,8 20,8 "></polyline>
+                                                                    <line class="st0" x1="16" y1="13" x2="8" y2="13"></line>
+                                                                    <line class="st0" x1="16" y1="17" x2="8" y2="17"></line>
+                                                                    <polyline class="st0" points="10,9 9,9 8,9 "></polyline>
+                                                                </svg>
+                                                                <h3> <span>Reading: </span> Ut enim ad minim veniam</h3>
+                                                            </div>
+                                                            <div class="course__curriculum-meta">
+                                                                <span class="time"> <i class="icon_clock_alt"></i> 22 minutes</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                                    <div class="course__review">
+                                        <h3>Reviews</h3>
+                                        <p>Gosh william I'm telling crikey burke I don't want no agro A bit of how's your father bugger all mate off his nut that, what a plonker cuppa owt to do</p>
+
+                                        <div class="course__review-rating mb-50">
+                                            <div class="row g-0">
+                                                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="course__review-rating-info grey-bg text-center">
+                                                        <h5>5</h5>
+                                                        <ul>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                        </ul>
+                                                        <p>4 Ratings</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="course__review-details grey-bg">
+                                                        <h5>Detailed Rating</h5>
+                                                        <div class="course__review-content mb-20">
+                                                            <div class="course__review-item d-flex align-items-center justify-content-between">
+                                                                <div class="course__review-text">
+                                                                    <span>5 stars</span>
+                                                                </div>
+                                                                <div class="course__review-progress">
+                                                                    <div class="single-progress" data-width="100%" style="width: 100%;"></div>
+                                                                </div>
+                                                                <div class="course__review-percent">
+                                                                    <h5>100%</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="course__review-item d-flex align-items-center justify-content-between">
+                                                                <div class="course__review-text">
+                                                                    <span>4 stars</span>
+                                                                </div>
+                                                                <div class="course__review-progress">
+                                                                    <div class="single-progress" data-width="30%" style="width: 30%;"></div>
+                                                                </div>
+                                                                <div class="course__review-percent">
+                                                                    <h5>30%</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="course__review-item d-flex align-items-center justify-content-between">
+                                                                <div class="course__review-text">
+                                                                    <span>3 stars</span>
+                                                                </div>
+                                                                <div class="course__review-progress">
+                                                                    <div class="single-progress" data-width="0%" style="width: 0%;"></div>
+                                                                </div>
+                                                                <div class="course__review-percent">
+                                                                    <h5>0%</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="course__review-item d-flex align-items-center justify-content-between">
+                                                                <div class="course__review-text">
+                                                                    <span>2 stars</span>
+                                                                </div>
+                                                                <div class="course__review-progress">
+                                                                    <div class="single-progress" data-width="0%" style="width: 0%;"></div>
+                                                                </div>
+                                                                <div class="course__review-percent">
+                                                                    <h5>0%</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="course__review-item d-flex align-items-center justify-content-between">
+                                                                <div class="course__review-text">
+                                                                    <span>1 stars</span>
+                                                                </div>
+                                                                <div class="course__review-progress">
+                                                                    <div class="single-progress" data-width="0%" style="width: 0%;"></div>
+                                                                </div>
+                                                                <div class="course__review-percent">
+                                                                    <h5>0%</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="course__comment mb-75">
+                                            <h3>2 Comments</h3>
+
+                                            <ul>
+                                                <li>
+                                                    <div class="course__comment-box ">
+                                                        <div class="course__comment-thumb float-start">
+                                                            <img src="~/Content/assets/img/course/comment/course-comment-1.jpg" alt="">
+                                                        </div>
+                                                        <div class="course__comment-content">
+                                                            <div class="course__comment-wrapper ml-70 fix">
+                                                                <div class="course__comment-info float-start">
+                                                                    <h4>Eleanor Fant</h4>
+                                                                    <span>July 14, 2022</span>
+                                                                </div>
+                                                                <div class="course__comment-rating float-start float-sm-end">
+                                                                    <ul>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="course__comment-text ml-70">
+                                                                <p>So I said lurgy dropped a clanger Jeffrey bugger cuppa gosh David blatant have it, standard A bit of how's your father my lady absolutely.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="course__comment-box ">
+                                                        <div class="course__comment-thumb float-start">
+                                                            <img src="~/Content/assets/img/course/comment/course-comment-2.jpg" alt="">
+                                                        </div>
+                                                        <div class="course__comment-content">
+                                                            <div class="course__comment-wrapper ml-70 fix">
+                                                                <div class="course__comment-info float-start">
+                                                                    <h4>Shahnewaz Sakil</h4>
+                                                                    <span>July 17, 2022</span>
+                                                                </div>
+                                                                <div class="course__comment-rating float-start float-sm-end">
+                                                                    <ul>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#" class="no-rating"> <i class="icon_star"></i> </a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="course__comment-text ml-70">
+                                                                <p>David blatant have it, standard A bit of how's your father my lady absolutely.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="course__form">
+                                            <h3>Write a Review</h3>
+                                            <div class="course__form-inner">
+                                                <form action="#">
+                                                    <div class="row">
+                                                        <div class="col-xxl-6">
+                                                            <div class="course__form-input">
+                                                                <input type="text" placeholder="Your Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-6">
+                                                            <div class="course__form-input">
+                                                                <input type="email" placeholder="Your Email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-12">
+                                                            <div class="course__form-input">
+                                                                <input type="text" placeholder="Review Title">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-12">
+                                                            <div class="course__form-input">
+                                                                <div class="course__form-rating">
+                                                                    <span>Rating : </span>
+                                                                    <ul>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#" class="no-rating"> <i class="icon_star"></i> </a></li>
+                                                                        <li><a href="#" class="no-rating"> <i class="icon_star"></i> </a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <textarea placeholder="Review Summary"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xxl-12">
+                                                            <div class="course__form-btn mt-10 mb-55">
+                                                                <button type="submit" class="e-btn">Submit Review</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
+                                    <div class="course__member mb-45">
+                                        <div class="course__member-item">
+                                            <div class="row align-items-center">
+                                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-6">
+                                                    <div class="course__member-thumb d-flex align-items-center">
+                                                        <img src="~/Content/assets/img/course/instructor/course-instructor-1.jpg" alt="">
+                                                        <div class="course__member-name ml-20">
+                                                            <h5>Shahnewaz Sakil</h5>
+                                                            <span>Engineer</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-45">
+                                                        <h5>07</h5>
+                                                        <span>Courses</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-70">
+                                                        <h5>05</h5>
+                                                        <span>Reviw</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-85">
+                                                        <h5>3.00</h5>
+                                                        <span>Rating</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="course__member-item">
+                                            <div class="row align-items-center">
+                                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-6">
+                                                    <div class="course__member-thumb d-flex align-items-center">
+                                                        <img src="~/Content/assets/img/course/instructor/course-instructor-2.jpg" alt="">
+                                                        <div class="course__member-name ml-20">
+                                                            <h5>Lauren Stamps</h5>
+                                                            <span>Teacher</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-45">
+                                                        <h5>05</h5>
+                                                        <span>Courses</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-70">
+                                                        <h5>03</h5>
+                                                        <span>Reviw</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-85">
+                                                        <h5>3.00</h5>
+                                                        <span>Rating</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="course__member-item">
+                                            <div class="row align-items-center">
+                                                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-6 ">
+                                                    <div class="course__member-thumb d-flex align-items-center">
+                                                        <img src="~/Content/assets/img/course/instructor/course-instructor-3.jpg" alt="">
+                                                        <div class="course__member-name ml-20">
+                                                            <h5>Jonquil Von</h5>
+                                                            <span>Associate</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-45">
+                                                        <h5>09</h5>
+                                                        <span>Courses</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-70">
+                                                        <h5>07</h5>
+                                                        <span>Reviw</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4">
+                                                    <div class="course__member-info pl-85">
+                                                        <h5>4.00</h5>
+                                                        <span>Rating</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course__share">
+                                    <h3>Share :</h3>
+                                    <ul>
+                                        <li><a href="#" class="fb"><i class="social_facebook"></i></a></li>
+                                        <li><a href="#" class="tw"><i class="social_twitter"></i></a></li>
+                                        <li><a href="#" class="pin"><i class="social_pinterest"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course__related">
+                            <div class="row">
+                                <div class="col-xxl-12">
+                                    <div class="section__title-wrapper mb-40">
+                                        <h2 class="section__title">Related <span class="yellow-bg yellow-bg-big">Course<img src="~/Content/assets/img/shape/yellow-bg.png" alt=""></span></h2>
+                                        <p>You don't have to struggle alone, you've got our assistance and help.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xxl-12">
+                                    <div class="course__slider swiper-container pb-60 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                                        <div class="swiper-wrapper" id="swiper-wrapper-6a93aed4910d0aec4" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+                                           @foreach (var item in ViewBag.CoureReleateds)
+                                           {
+                                            <div class="course__item course__item-3 swiper-slide white-bg mb-30 fix swiper-slide-active" role="group" aria-label="1 / 4" style="width: 353px; margin-right: 30px;">
+                                                <div class="course__thumb w-img p-relative fix">
+                                                    <a href="courses/@item.Slug">
+                                                        <img src="@item.Image" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="course__content">
+                                                    <h3 class="course__title"><a href="courses/@item.Slug">@item.Name</a></h3>
+
+                                                </div>
+                                                <div class="course__more d-flex justify-content-between align-items-center">
+                                                    <div class="course__status">
+                                                        @if (item.SalePrice == 0)
+                                                        {
+                                                            <span>Free</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="sky-blue">$@item.SalePrice</span>
+                                                            <span class="old-price">$@item.Price</span>
+                                                        }
+
+                                                    </div>
+                                                    <div class="course__btn">
+                                                        <a href="/courses/@item.Slug" class="link-btn">
+                                                            Know Details
+                                                            <i class="far fa-arrow-right"></i>
+                                                            <i class="far fa-arrow-right"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           }
+                                        </div>
+                                        <!-- Add Pagination -->
+                                        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
+                                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4">
+                    <div class="course__sidebar pl-70 p-relative">
+                        <div class="course__shape">
+                            <img class="course-dot" src="~/Content/assets/img/course/course-dot.png" alt="">
+                        </div>
+                        <div class="course__sidebar-widget-2 white-bg mb-20">
+                            <div class="course__video">
+                                <div class="course__video-thumb w-img mb-25">
+                                    <img src="~/Content/assets/img/course/video/course-video.jpg" alt="">
+                                    <div class="course__video-play">
+                                        <a href="https://youtu.be/yJg-Y5byMMw" data-fancybox="" class="play-btn"> <i class="fas fa-play"></i> </a>
+                                    </div>
+                                </div>
+                                <div class="course__video-meta mb-25 d-flex align-items-center justify-content-between">
+                                    <div class="course__video-price">
+                                        @if (Model.SalePrice == 0)
+                                        {
+                                            <h5>Free</h5>
+                                        }
+                                        else
+                                        {
+                                            <h5>$@Html.DisplayFor(model => model.SalePrice).<span>00</span> </h5>
+                                            <h5 class="old-price">$@Html.DisplayFor(model => model.Price).00</h5>
+                                        }
+
+                                    </div>
+                                    @if(@ViewBag.Discount != 0){
+                                        <div class="course__video-discount">
+                                            <span>@ViewBag.Discount% OFF</span>
+                                        </div>
+                                    }
+
+                                </div>
+                                <div class="course__video-content mb-35">
+                                    <ul>
+                                        <li class="d-flex align-items-center">
+                                            <div class="course__video-icon">
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
+                                                <circle class="st0" cx="8" cy="8" r="6.7"></circle>
+                                                <polyline class="st0" points="8,4 8,8 10.7,9.3 "></polyline>
+                                          </svg>
+                                            </div>
+                                            <div class="course__video-info">
+                                                <h5><span>Duration :</span>@Html.DisplayFor(model=>model.StudyTime) months</h5>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex align-items-center">
+                                            <div class="course__video-icon">
+                                                <svg>
+                                                    <path class="st0" d="M13.3,14v-1.3c0-1.5-1.2-2.7-2.7-2.7H5.3c-1.5,0-2.7,1.2-2.7,2.7V14"></path>
+                                                    <circle class="st0" cx="8" cy="4.7" r="2.7"></circle>
+                                                </svg>
+                                            </div>
+                                            <div class="course__video-info">
+                                                <h5><span>Enrolled :</span>20 students</h5>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course__sidebar-widget-2 white-bg mb-20">
+                            <div class="course__sidebar-course">
+                                <h3 class="course__sidebar-title">Related courses</h3>
+                                <ul>
+                                    @foreach (var item in ViewBag.RelatedSidebar)
+                                    {
+                                          <li>
+                                            <div class="course__sm d-flex align-items-center mb-30">
+                                                <div class="course__sm-thumb mr-20">
+                                                    <a href="#">
+                                                        <img src="@item.Image" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="course__sm-content">
+                                                    <div class="course__sm-rating">
+                                                        <ul>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                            <li><a href="#"> <i class="icon_star"></i> </a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <h5><a href="#">@item.Name</a></h5>
+                                                    <div class="course__sm-price">
+                                                        @if (item.SalePrice == 0)
+                                                        {
+                                                            <span>Free</span>
+                                                        }
+                                                        else { 
+                                                            <span>$@item.SalePrice</span>
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- page title area end -->
+    <!-- cta area start -->
+    <section class="cta__area mb--120">
+        <div class="container">
+            <div class="cta__inner blue-bg fix">
+                <div class="cta__shape">
+                    <img src="~/Content/assets/img/cta/cta-shape.png" alt="">
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-xxl-7 col-xl-7 col-lg-8 col-md-8">
+                        <div class="cta__content">
+                            <h3 class="cta__title">You can be your own Guiding star with our help</h3>
+                        </div>
+                    </div>
+                    <div class="col-xxl-5 col-xl-5 col-lg-4 col-md-4">
+                        <div class="cta__more d-md-flex justify-content-end p-relative z-index-1">
+                            <a href="contact.html" class="e-btn e-btn-white">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- cta area end -->
+
+
+</main>
+

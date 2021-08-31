@@ -1,0 +1,51 @@
+﻿@model Education.DAL.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">Category Detail</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">@Html.ActionLink("Categories", "Index")</li>
+                <li class="breadcrumb-item active">Category Detail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="about-info">
+                            <h4>About Category</h4>
+                            <div class="media mt-3">
+                                <div class="media-body">
+                                    <ul>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.Name) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.Name)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.ParentId) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.ParentId)</span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @Html.ActionLink("Back To List", "Index", null, new { @class = "btn btn-primary mb-5" })
+
+    </div>
+</div>

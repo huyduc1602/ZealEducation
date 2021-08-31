@@ -1,0 +1,376 @@
+﻿@model  IEnumerable<Education.DAL.Course>
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <style>
+        .header__area.sticky ul li a {
+            color: #0e1133;
+        }
+    </style>
+}
+<!-- page title area start -->
+<section class="page__title-area page__title-height page__title-overlay d-flex align-items-center" data-background="/Content/assets/img/page-title/page-title.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="page__title-wrapper mt-110">
+                    <h3 class="page__title">Search : @ViewBag.Key</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Courses","Home")">Courses</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Search : @ViewBag.Key</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end -->
+<!-- course area start -->
+<section class="course__area pt-120 pb-120">
+    <div class="container">
+        <div class="course__tab-inner grey-bg-2 mb-50">
+            <div class="row align-items-center">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="course__tab-wrapper d-flex align-items-center">
+                        <div class="course__tab-btn">
+                            <ul class="nav nav-tabs" id="courseTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab" aria-controls="grid" aria-selected="true">
+                                        <svg class="grid" viewBox="0 0 24 24">
+                                            <rect x="3" y="3" class="st0" width="7" height="7" />
+                                            <rect x="14" y="3" class="st0" width="7" height="7" />
+                                            <rect x="14" y="14" class="st0" width="7" height="7" />
+                                            <rect x="3" y="14" class="st0" width="7" height="7" />
+                                        </svg>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link list" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="list" aria-selected="false">
+                                        <svg class="list" viewBox="0 0 512 512">
+                                            <g id="Layer_2_1_">
+                                                <path class="st0" d="M448,69H192c-17.7,0-32,13.9-32,31s14.3,31,32,31h256c17.7,0,32-13.9,32-31S465.7,69,448,69z" />
+                                                <circle class="st0" cx="64" cy="100" r="31" />
+                                                <path class="st0" d="M448,225H192c-17.7,0-32,13.9-32,31s14.3,31,32,31h256c17.7,0,32-13.9,32-31S465.7,225,448,225z" />
+                                                <circle class="st0" cx="64" cy="256" r="31" />
+                                                <path class="st0" d="M448,381H192c-17.7,0-32,13.9-32,31s14.3,31,32,31h256c17.7,0,32-13.9,32-31S465.7,381,448,381z" />
+                                                <circle class="st0" cx="64" cy="412" r="31" />
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="course__view">
+                            <h4>Showing 1 - 9 of @ViewBag.TotalCourse</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="course__tab-conent">
+                    <div class="tab-content" id="courseTabContent">
+                        <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                            <div class="row list-course">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                                        <div class="course__item white-bg mb-30 fix">
+                                            <div class="course__thumb w-img p-relative fix">
+                                                <a href="/courses/@item.Slug">
+                                                    <img src="@Html.DisplayFor(modelItem => item.Image)" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="course__content">
+                                                <h3 class="course__title"><a href="/courses/@item.Slug">@Html.DisplayFor(modelItem => item.Name)</a></h3>
+                                            </div>
+                                            <div class="course__more d-flex justify-content-between align-items-center">
+                                                <div class="course__status">
+                                                    @if (item.SalePrice == 0)
+                                                    {
+                                                        <span>Free</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="sky-blue">$@item.SalePrice</span>
+                                                        <span class="old-price">$@item.Price</span>
+                                                    }
+
+                                                </div>
+                                                <div class="course__btn">
+                                                    <a href="/courses/@item.Slug" class="link-btn">
+                                                        Know Details
+                                                        <i class="far fa-arrow-right"></i>
+                                                        <i class="far fa-arrow-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                            <div class="row list-course-list">
+                                <div class="col-xxl-12">
+                                    <div class="course__item white-bg mb-30 fix">
+                                        <div class="row gx-0">
+                                            <div class="col-xxl-4 col-xl-4 col-lg-4">
+                                                <div class="course__thumb course__thumb-list w-img p-relative fix">
+                                                    <a href="course-details.html">
+                                                        <img src="~/Content/assets/img/course/list/course-1.jpg" alt="">
+                                                    </a>
+                                                    <div class="course__tag">
+                                                        <a href="#">Art & Design</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-8 col-xl-8 col-lg-8">
+                                                <div class="course__right">
+                                                    <div class="course__content course__content-3">
+                                                        <div class="course__meta d-flex align-items-center">
+                                                            <div class="course__lesson mr-20">
+                                                                <span><i class="far fa-book-alt"></i>43 Lesson</span>
+                                                            </div>
+                                                            <div class="course__rating">
+                                                                <span><i class="icon_star"></i>4.5 (44)</span>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="course__title course__title-3">
+                                                            <a href="course-details.html">Become a product Manager learn the skills & job.</a>
+                                                        </h3>
+                                                        <div class="course__summary">
+                                                            <p>Communia virtutes tutiorem declarat stoicorum sanabat oblivisci nostris tamquam iucunditatem</p>
+                                                        </div>
+                                                        <div class="course__teacher d-flex align-items-center">
+                                                            <div class="course__teacher-thumb mr-15">
+                                                                <img src="~/Content/assets/img/course/teacher/teacher-1.jpg" alt="">
+                                                            </div>
+                                                            <h6><a href="instructor-details.html">Jim Séchen</a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="course__more course__more-2 d-flex justify-content-between align-items-center">
+                                                        <div class="course__status">
+                                                            <span>Free</span>
+                                                        </div>
+                                                        <div class="course__btn">
+                                                            <a href="course-details.html" class="link-btn">
+                                                                Know Details
+                                                                <i class="far fa-arrow-right"></i>
+                                                                <i class="far fa-arrow-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="basic-pagination wow fadeInUp mt-30" data-wow-delay=".2s">
+                    <ul class="d-flex align-items-center pagination">
+                        <li class="prev">
+                            <a href="course-grid.html" class="link-btn link-prev">
+                                Prev
+                                <i class="arrow_left"></i>
+                                <i class="arrow_left"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/courses">
+                                <span>1</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="/courses">
+                                <span>2</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/courses">
+                                <span>3</span>
+                            </a>
+                        </li>
+                        <li class="next">
+                            <a href="/courses" class="link-btn">
+                                Next
+                                <i class="arrow_right"></i>
+                                <i class="arrow_right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- course area end -->
+<!-- cta area start -->
+<section class="cta__area mb--120">
+    <div class="container">
+        <div class="cta__inner blue-bg fix">
+            <div class="cta__shape">
+                <img src="~/Content/assets/img/cta/cta-shape.png" alt="">
+            </div>
+            <div class="row align-items-center">
+                <div class="col-xxl-7 col-xl-7 col-lg-8 col-md-8">
+                    <div class="cta__content">
+                        <h3 class="cta__title">You can be your own Guiding star with our help</h3>
+                    </div>
+                </div>
+                <div class="col-xxl-5 col-xl-5 col-lg-4 col-md-4">
+                    <div class="cta__more d-md-flex justify-content-end p-relative z-index-1">
+                        <a href="contact.html" class="e-btn e-btn-white">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- cta area end -->
+<input type="hidden" id="textSearch" value="@ViewBag.Key" />
+@section scripts{
+    <script>
+        var manager = {
+            load: function (CurrentPage = 1, Limit = 9, Key = null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetDataCourse",
+                    data: { CurrentPage: CurrentPage, Limit: Limit, Key: Key },
+                    success: function (res) {
+                        res.data = JSON.parse(res.data);
+                        html = '';
+                        htmlList = '';
+                        if (res.data.length == 0) {
+                            html += "<span class='text-center'>No result is found</span>";
+                        } else {
+                            for (let item of res.data) {
+                                html += `<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                                            <div class="course__item white-bg mb-30 fix">
+                                                <div class="course__thumb w-img p-relative fix">
+                                                    <a href="/courses/{item.Slug}">
+                                                        <img src="${item.Image}" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="course__content">
+                                                    <h3 class="course__title"><a href="/courses/${item.Slug}">${item.Name}</a></h3>
+                                                    </div>
+                                                    <div class="course__more d-flex justify-content-between align-items-center">
+                                                        <div class="course__status">`;
+                                if (item.SalePrice == 0) {
+                                    html += `<span>Free</span>`;
+                                }
+                                else {
+                                    html += `<span class="sky-blue">$${item.SalePrice}.00</span>
+                                                                                        <span class="old-price">$${item.Price}.00</span>`;
+                                }
+
+                                html += `</div >
+                                                        <div class="course__btn">
+                                                            <a href="/courses/${item.Slug}" class="link-btn">
+                                                                Know Details
+                                                                                                        <i class="far fa-arrow-right"></i>
+                                                                <i class="far fa-arrow-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div >
+                                                </div >
+                                            </div >`;
+
+                                htmlList += ` <div class="col-xxl-12">
+                                    <div class="course__item white-bg mb-30 fix">
+                                        <div class="row gx-0">
+                                            <div class="col-xxl-4 col-xl-4 col-lg-4">
+                                                <div class="course__thumb course__thumb-list w-img p-relative fix">
+                                                    <a href="course-details.html">
+                                                        <img src="${item.Image}" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-8 col-xl-8 col-lg-8">
+                                                <div class="course__right">
+                                                    <div class="course__content course__content-3">
+                                                        <h3 class="course__title course__title-3">
+                                                            <a href="/courses/${item.Slug}">${item.Name}</a>
+                                                        </h3>
+
+                                                    </div>
+                                                    <div class="course__more course__more-2 d-flex justify-content-between align-items-center">
+                                                         <div class="course__status">`;
+                                if (item.SalePrice == 0) {
+                                    htmlList += `<span>Free</span>`;
+                                }
+                                else {
+                                    htmlList += `<span class="sky-blue">$${item.SalePrice}.00</span>
+                                                                                                                            <span class="old-price">$${item.Price}.00</span>`;
+                                }
+
+                                htmlList += `</div >
+                                                        <div class="course__btn">
+                                                            <a href="/courses/${item.Slug}" class="link-btn">
+                                                                Know Details
+                                                                <i class="far fa-arrow-right"></i>
+                                                                <i class="far fa-arrow-right"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            }
+                        }
+                        
+                                let paginate = '';
+                                if (res.paginate.TotalPage > 1) {
+                                    for (var i = 1; i <= res.paginate.TotalPage; i++) {
+                                        if (i == res.paginate.CurrentPage) {
+                                            paginate += `<li class="active" > <a href="javascript:void(0)"><span>${i}<span></a></li>`;
+                                        } else {
+                                            paginate += `<li> <a class="page" href="javascript:void(0)"><span>${i}</span></a></li>`;
+                                        }
+
+                                    }
+                                }
+
+                                $(".list-course").html(html);
+                                $(".list-course-list").html(htmlList);
+                                $(".pagination").html(paginate);
+                            }
+                        })
+                    }
+
+                }
+                $(function () {
+                    $('#header-sticky').addClass('header__white');
+                    var key = $('#textSearch').val();
+                    manager.load(1,9,key);
+                    $(document).on("click", ".page", function () {
+                        let page = $(this).text();
+                        let key = $("#key").val();
+                        manager.load(page, key);
+                    })
+                    $("#key").keyup(function () {
+                        let limit = 9;
+                        let key = $("#key").val();
+                        manager.load(1, limit, key);
+                    })
+                })
+
+    </script>
+
+}

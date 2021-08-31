@@ -1,0 +1,70 @@
+﻿@model Education.DAL.Course
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">Course Detail</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">@Html.ActionLink("Courses", "Index")</li>
+                <li class="breadcrumb-item active">Course Detail</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="about-info">
+                            <h4>About Course</h4>
+                            <div class="media mt-3">
+                                <img src="@Html.DisplayFor(model => model.Image)" class="mr-3" alt="@Html.DisplayFor(model => model.Name)" />
+                                <div class="media-body">
+                                    <ul>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.Code) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.Code)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.Name) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.Name)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.StudyTime) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.StudyTime)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.Price) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.Price)</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">@Html.DisplayNameFor(model => model.SalePrice) : </span>
+                                            <span class="info-span">@Html.DisplayFor(model => model.SalePrice)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h5>@Html.DisplayNameFor(model => model.Detail)</h5>
+                                    <div>@Html.Raw(Model.Detail)</div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        @Html.ActionLink("Back To List", "Index",null,new{ @class="btn btn-primary mb-5"})
+
+    </div>
+</div>
