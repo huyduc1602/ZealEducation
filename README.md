@@ -1,4 +1,4 @@
-HR_Frontier
+Zeal Education Manager
 How to run project
 Run sql script in Database/Database.sql
 Open project in visual studio
